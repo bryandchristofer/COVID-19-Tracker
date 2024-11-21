@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
 import FilterSortBar from "./FilterSortBar";
 import AddNoteModal from "./AddNoteModal";
 import ModalDetail from "./ModalDetail";
+import fetchCovidData from "../utils/fetchCovidData"; // Fetch data utility
+import { getNotes, saveNote } from "../utils/localStorageUtils"; // Local storage utilities
 
-const HomePage = ({ onAddToNotes }) => {
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("name");
+const HomePage = () => {
+  const [data, setData] = useState([]); // API data
+  const [filteredData, setFilteredData] = useState([]); // Filtered and sorted data
+  const [searchQuery, setSearchQuery] = useState(""); // Search query
+  const [sortOption, setSortOption] = useState("name"); // Sorting option
   const [isAddNoteModalOpen, setAddNoteModalOpen] = useState(false); // Add Note Modal state
   const [isDetailModalOpen, setDetailModalOpen] = useState(false); // Detail Modal state
   const [selectedCountry, setSelectedCountry] = useState(null); // Selected country for modal
   const navigate = useNavigate(); // Navigation hook
 
+  // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://disease.sh/v3/covid-19/countries");
-      const result = await response.json();
-      setData(result);
-      setFilteredData(result);
+      const covidData = await fetchCovidData();
+      setData(covidData);
+      setFilteredData(covidData);
     };
     fetchData();
   }, []);
 
+  // Filter and sort data dynamically
   useEffect(() => {
     const filterAndSortData = () => {
       let updatedData = data.filter((item) =>
@@ -44,27 +47,32 @@ const HomePage = ({ onAddToNotes }) => {
     filterAndSortData();
   }, [searchQuery, sortOption, data]);
 
+  // Open the detail modal
   const handleViewDetails = (country) => {
     setSelectedCountry(country);
-    setDetailModalOpen(true); // Open the Detail Modal
+    setDetailModalOpen(true);
   };
 
+  // Close the detail modal
   const handleCloseDetailModal = () => {
     setSelectedCountry(null);
-    setDetailModalOpen(false); // Close the modal
+    setDetailModalOpen(false);
   };
 
+  // Open the add note modal
   const handleAddToNotes = (country) => {
     setSelectedCountry(country);
-    setAddNoteModalOpen(true); // Open the Add Note Modal
+    setAddNoteModalOpen(true);
   };
 
+  // Save the note and navigate to the Note Page
   const handleSaveNote = (noteData) => {
-    onAddToNotes(noteData); // Save the note through the parent-provided function
-    setAddNoteModalOpen(false); // Close the modal
-    navigate("/notes"); // Redirect to the Note Page
+    saveNote(noteData); // Save to localStorage
+    setAddNoteModalOpen(false); // Close modal
+    navigate("/notes"); // Redirect to Note Page
   };
 
+  // Close the add note modal
   const handleCloseAddNoteModal = () => {
     setSelectedCountry(null);
     setAddNoteModalOpen(false);
