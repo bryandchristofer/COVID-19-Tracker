@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import NotePage from "./components/NotePage";
@@ -6,14 +6,23 @@ import NotePage from "./components/NotePage";
 const App = () => {
   const [notes, setNotes] = useState([]); // State to manage saved notes
 
+  // Load notes from local storage on app start
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    setNotes(storedNotes);
+  }, []);
+
+  // Save notes to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
+
   // Function to handle adding a new note
   const handleAddToNotes = (newNote) => {
-    setNotes((prevNotes) => [...prevNotes, { ...newNote, id: Date.now() }]); // Add unique ID
-  };
-
-  // Function to handle viewing details (this will be passed to the HomePage)
-  const handleViewDetails = (country) => {
-    console.log("View Details:", country); // Currently logs, but could show a modal or page
+    // Avoid duplicates by checking if the country already exists in notes
+    if (!notes.some((note) => note.country === newNote.country)) {
+      setNotes((prevNotes) => [...prevNotes, { ...newNote, id: Date.now() }]); // Add unique ID
+    }
   };
 
   // Function to update notes (used for edit/delete actions in NotePage)
@@ -27,12 +36,7 @@ const App = () => {
         {/* Home Page Route */}
         <Route
           path="/"
-          element={
-            <HomePage
-              onAddToNotes={handleAddToNotes}
-              onViewDetails={handleViewDetails}
-            />
-          }
+          element={<HomePage onAddToNotes={handleAddToNotes} />}
         />
 
         {/* Notes Page Route */}

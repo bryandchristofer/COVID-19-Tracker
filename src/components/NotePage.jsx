@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalDetail from "./ModalDetail"; // For viewing details
 import AddNoteModal from "./AddNoteModal"; // For editing notes
 
-const NotePage = ({ notes, onUpdateNotes }) => {
-  const [filteredNotes, setFilteredNotes] = useState(notes); // Filtered and sorted notes
+const NotePage = () => {
+  const [notes, setNotes] = useState([]); // Notes fetched from local storage
+  const [filteredNotes, setFilteredNotes] = useState([]); // Filtered and sorted notes
   const [searchQuery, setSearchQuery] = useState(""); // Search input state
   const [sortOption, setSortOption] = useState("name"); // Sorting option state
   const [selectedNote, setSelectedNote] = useState(null); // Note for detail or edit
   const [isDetailModalOpen, setDetailModalOpen] = useState(false); // Detail Modal state
   const [isEditModalOpen, setEditModalOpen] = useState(false); // Edit Modal state
+
+  // Fetch notes from local storage on component mount
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    setNotes(storedNotes);
+    setFilteredNotes(storedNotes);
+  }, []);
 
   // Handle search filtering
   const handleFilter = (query) => {
@@ -24,18 +32,19 @@ const NotePage = ({ notes, onUpdateNotes }) => {
     setSortOption(option);
     const sorted = [...filteredNotes].sort((a, b) => {
       if (option === "name") return a.country.localeCompare(b.country);
-      if (option === "cases") return b.cases - a.cases;
-      if (option === "deaths") return b.deaths - a.deaths;
+      if (option === "cases") return (b.cases || 0) - (a.cases || 0);
+      if (option === "deaths") return (b.deaths || 0) - (a.deaths || 0);
       return 0;
     });
     setFilteredNotes(sorted);
   };
 
-  // Handle delete note
-  const handleDelete = (note) => {
-    const updatedNotes = notes.filter((n) => n.id !== note.id);
-    onUpdateNotes(updatedNotes); // Pass the updated notes back to parent
-    setFilteredNotes(updatedNotes); // Update the displayed notes
+  // Handle deleting a note
+  const handleDeleteNote = (id) => {
+    const updatedNotes = notes.filter((note) => note.id !== id);
+    setNotes(updatedNotes); // Update the state
+    setFilteredNotes(updatedNotes); // Update filtered notes
+    localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Update local storage
   };
 
   // Open detail modal
@@ -48,6 +57,17 @@ const NotePage = ({ notes, onUpdateNotes }) => {
   const handleEditItem = (note) => {
     setSelectedNote(note);
     setEditModalOpen(true);
+  };
+
+  // Handle saving an edited note
+  const handleSaveEditedNote = (updatedNote) => {
+    const updatedNotes = notes.map((note) =>
+      note.id === updatedNote.id ? updatedNote : note
+    );
+    setNotes(updatedNotes); // Update state
+    setFilteredNotes(updatedNotes); // Update filtered notes
+    localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Update local storage
+    setEditModalOpen(false); // Close edit modal
   };
 
   return (
@@ -88,7 +108,12 @@ const NotePage = ({ notes, onUpdateNotes }) => {
             {/* Note Details */}
             <div className="bg-gray-100 p-4 rounded-lg mb-4">
               <p><strong>Country:</strong> {note.country}</p>
-              <p><strong>Cases:</strong> {note.cases.toLocaleString()}</p>
+              <p>
+                <strong>Cases:</strong> {(note.cases || 0).toLocaleString()}
+              </p>
+              <p>
+                <strong>Deaths:</strong> {(note.deaths || 0).toLocaleString()}
+              </p>
               <p><strong>Extra Note:</strong> {note.note || "N/A"}</p>
             </div>
 
@@ -107,7 +132,7 @@ const NotePage = ({ notes, onUpdateNotes }) => {
                 Edit Item
               </button>
               <button
-                onClick={() => handleDelete(note)}
+                onClick={() => handleDeleteNote(note.id)}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 focus:ring-2 focus:ring-red-300 focus:outline-none"
               >
                 Hapus Item
@@ -129,14 +154,7 @@ const NotePage = ({ notes, onUpdateNotes }) => {
         isOpen={isEditModalOpen}
         onClose={() => setEditModalOpen(false)}
         country={selectedNote}
-        onSave={(updatedNote) => {
-          const updatedNotes = notes.map((n) =>
-            n.id === updatedNote.id ? updatedNote : n
-          );
-          onUpdateNotes(updatedNotes); // Update notes in parent
-          setFilteredNotes(updatedNotes); // Update displayed notes
-          setEditModalOpen(false); // Close modal
-        }}
+        onSave={handleSaveEditedNote}
       />
     </div>
   );
