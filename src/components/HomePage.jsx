@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation
 import FilterSortBar from "./FilterSortBar";
 import AddNoteModal from "./AddNoteModal";
 import ModalDetail from "./ModalDetail";
 
-const HomePage = () => {
+const HomePage = ({ onAddToNotes }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,6 +12,7 @@ const HomePage = () => {
   const [isAddNoteModalOpen, setAddNoteModalOpen] = useState(false); // Add Note Modal state
   const [isDetailModalOpen, setDetailModalOpen] = useState(false); // Detail Modal state
   const [selectedCountry, setSelectedCountry] = useState(null); // Selected country for modal
+  const navigate = useNavigate(); // Navigation hook
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,9 +60,9 @@ const HomePage = () => {
   };
 
   const handleSaveNote = (noteData) => {
-    // Save noteData (you can store it in local storage, state, or send it to an API)
-    console.log("Saved Note:", noteData);
-    setAddNoteModalOpen(false); // Close the modal after saving
+    onAddToNotes(noteData); // Save the note through the parent-provided function
+    setAddNoteModalOpen(false); // Close the modal
+    navigate("/notes"); // Redirect to the Note Page
   };
 
   const handleCloseAddNoteModal = () => {
