@@ -41,10 +41,8 @@ const NotePage = () => {
         My Notes
       </h1>
 
-      {/* Filter and Sort Bar */}
       <FilterSortBar data={notes} onFilterSort={setFilteredNotes} />
 
-      {/* Grid View */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {filteredNotes.map((note) => (
           <div

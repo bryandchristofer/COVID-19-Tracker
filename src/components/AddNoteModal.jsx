@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useNotes } from "../contexts/NotesContext"; // Import NotesContext for adding notes
+import { useNotes } from "../contexts/NotesContext";
 
 const AddNoteModal = ({ isOpen, onClose, country }) => {
   const [note, setNote] = useState("");
-  const { addNote } = useNotes(); // Access the addNote function from context
+  const { addNote } = useNotes();
 
-  // Populate the note field with the existing note (if available) when the modal opens
   useEffect(() => {
     if (country) {
-      setNote(country.note || ""); // Use the existing note or an empty string
+      setNote(country.note || "");
     }
   }, [country]);
 
   const handleSave = () => {
-    // Add the note using the context function
     addNote({ ...country, note });
-    onClose(); // Close the modal after saving
+    onClose();
   };
 
-  if (!isOpen) return null; // Do not render the modal if it's not open
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">

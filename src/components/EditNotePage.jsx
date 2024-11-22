@@ -2,26 +2,24 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const EditNotePage = () => {
-  const navigate = useNavigate(); // For navigation
-  const { state } = useLocation(); // Access passed state
-  const note = state?.note; // Extract the note details
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const note = state?.note;
 
-  const [updatedNote, setUpdatedNote] = useState(note?.note || ""); // Editable note state
+  const [updatedNote, setUpdatedNote] = useState(note?.note || "");
 
   if (!note) {
-    // Redirect back to Note Page if no note data is available
     navigate("/notes");
     return null;
   }
 
-  // Handle updating the note in local storage
   const handleUpdateNote = () => {
     const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
     const updatedNotes = storedNotes.map((n) =>
       n.id === note.id ? { ...n, note: updatedNote } : n
     );
-    localStorage.setItem("notes", JSON.stringify(updatedNotes)); // Save updated notes
-    navigate("/notes"); // Redirect back to Note Page
+    localStorage.setItem("notes", JSON.stringify(updatedNotes));
+    navigate("/notes");
   };
 
   return (

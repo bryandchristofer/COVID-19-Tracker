@@ -1,7 +1,7 @@
 import React from "react";
 
 const DeleteModal = ({ isOpen, onClose, onDelete, itemName }) => {
-  if (!isOpen) return null; // Do not render if the modal is not open
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">

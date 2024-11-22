@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const location = useLocation(); // Get the current route path
+  const location = useLocation();
 
   return (
     <nav className="bg-gray-800 text-white py-4 shadow-lg">

@@ -4,8 +4,8 @@ import AddNoteModal from "./AddNoteModal";
 import ModalDetail from "./ModalDetail";
 
 const HomePage = () => {
-  const [data, setData] = useState([]); // API data
-  const [filteredData, setFilteredData] = useState([]); // Filtered and sorted data
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [isAddNoteModalOpen, setAddNoteModalOpen] = useState(false);
   const [isDetailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);

@@ -6,9 +6,8 @@ const FilterSortBar = ({ data, onFilterSort }) => {
 
   useEffect(() => {
     const filterAndSortData = () => {
-      let updatedData = [...data]; // Create a copy to avoid mutating the original array
+      let updatedData = [...data];
 
-      // Apply search filter
       if (searchQuery) {
         updatedData = updatedData.filter((item) =>
           item.country.toLowerCase().includes(searchQuery.toLowerCase())
@@ -39,10 +38,10 @@ const FilterSortBar = ({ data, onFilterSort }) => {
           break;
       }
 
-      onFilterSort(updatedData); // Pass the updated data back to the parent
+      onFilterSort(updatedData);
     };
 
-    filterAndSortData(); // Call filtering and sorting whenever dependencies change
+    filterAndSortData();
   }, [data, searchQuery, sortOption, onFilterSort]);
 
   return (

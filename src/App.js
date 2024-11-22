@@ -5,16 +5,14 @@ import NotePage from "./components/NotePage";
 import NoteDetailPage from "./components/NoteDetailPage";
 import EditNotePage from "./components/EditNotePage";
 import Navbar from "./components/Navbar";
-import { NotesProvider } from "./contexts/NotesContext"; // Import NotesProvider
+import { NotesProvider } from "./contexts/NotesContext";
 
 const App = () => {
   return (
     <NotesProvider>
       <Router>
-        {/* Navbar */}
         <Navbar />
 
-        {/* Routes */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notes" element={<NotePage />} />

@@ -2,12 +2,11 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const NoteDetailPage = () => {
-  const navigate = useNavigate(); // For navigation
-  const { state } = useLocation(); // Access passed state
-  const note = state?.note; // Extract the note details
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const note = state?.note;
 
   if (!note) {
-    // If no note data is available, redirect back to the Note Page
     navigate("/notes");
     return null;
   }
