@@ -1,30 +1,42 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
+// Create the Notes Context
 const NotesContext = createContext();
 
-const notesReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_NOTE":
-      return [...state, action.payload];
-    case "EDIT_NOTE":
-      return state.map((note) =>
-        note.id === action.payload.id ? action.payload : note
-      );
-    case "DELETE_NOTE":
-      return state.filter((note) => note.id !== action.payload.id);
-    default:
-      return state;
-  }
-};
+// Custom Hook to use the Notes Context
+export const useNotes = () => useContext(NotesContext);
 
-const NotesProvider = ({ children }) => {
-  const [notes, dispatch] = useReducer(notesReducer, []);
+// NotesProvider Component
+export const NotesProvider = ({ children }) => {
+  const [notes, setNotes] = useState([]);
+
+  // Load notes from localStorage on component mount
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+    setNotes(storedNotes);
+  }, []);
+
+  // Save notes to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
+
+  const addNote = (newNote) => {
+    // Prevent duplicates
+    if (!notes.some((note) => note.country === newNote.country)) {
+      const updatedNotes = [...notes, { ...newNote, id: Date.now() }];
+      setNotes(updatedNotes); // Update context state
+    }
+  };
+
+  // Update notes (e.g., edit or delete actions)
+  const updateNotes = (updatedNotes) => {
+    setNotes(updatedNotes);
+  };
 
   return (
-    <NotesContext.Provider value={{ notes, dispatch }}>
+    <NotesContext.Provider value={{ notes, addNote, updateNotes }}>
       {children}
     </NotesContext.Provider>
   );
 };
-
-export { NotesContext, NotesProvider };
