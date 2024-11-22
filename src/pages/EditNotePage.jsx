@@ -39,7 +39,7 @@ const EditNotePage = () => {
 
         {/* Editable Extra Note */}
         <div className="bg-yellow-200 p-4 rounded-lg mb-6">
-          <p><strong>Existing Extra Note (Editable):</strong></p>
+          <p><strong>Note:</strong></p>
           <textarea
             value={updatedNote}
             onChange={(e) => setUpdatedNote(e.target.value)}

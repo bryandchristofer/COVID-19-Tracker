@@ -35,7 +35,7 @@ const NoteDetailPage = () => {
 
         {/* Extra Note */}
         <div className="bg-yellow-200 p-4 rounded-lg mb-6">
-          <p><strong>Existing Extra Note:</strong></p>
+          <p><strong>Note:</strong></p>
           <p>{note.note || "No additional notes available."}</p>
         </div>
 

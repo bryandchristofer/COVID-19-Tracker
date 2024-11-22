@@ -7,7 +7,7 @@ const DeleteModal = ({ isOpen, onClose, onDelete, itemName }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <p className="text-lg text-center mb-6">
-          Are you sure you want to delete <strong>{itemName}</strong>?
+          Are you sure you want to delete note for <strong>{itemName}</strong>?
         </p>
         <div className="flex justify-between">
           <button

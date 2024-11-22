@@ -44,7 +44,7 @@ const AddNoteModal = ({ isOpen, onClose, country }) => {
           onChange={(e) => setNote(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows="4"
-          placeholder="Add or edit your note here..."
+          placeholder="Add note here..."
         ></textarea>
 
         <div className="flex justify-between mt-4">
