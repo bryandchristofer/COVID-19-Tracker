@@ -16,15 +16,22 @@ const NoteDetailPage = () => {
     <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
       {/* Page Title */}
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-        Detail of {note.country}
+        COVID-19 Details: {note.country}
       </h1>
 
       {/* Item Details */}
       <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-300 w-full max-w-md">
         <div className="bg-gray-100 p-4 rounded-lg mb-4">
           <p><strong>Country:</strong> {note.country}</p>
-          <p><strong>Cases:</strong> {(note.cases || 0).toLocaleString()}</p>
-          <p><strong>Deaths:</strong> {(note.deaths || 0).toLocaleString()}</p>
+          <p><strong>Total Cases:</strong> {(note.cases || 0).toLocaleString()}</p>
+          <p><strong>Total Deaths:</strong> {(note.deaths || 0).toLocaleString()}</p>
+          <p><strong>Total Recovered:</strong> {(note.recovered || 0).toLocaleString()}</p>
+          <p><strong>Active Cases:</strong> {(note.active || 0).toLocaleString()}</p>
+          <p><strong>Critical Cases:</strong> {(note.critical || 0).toLocaleString()}</p>
+          <p><strong>Cases Today:</strong> {(note.todayCases || 0).toLocaleString()}</p>
+          <p><strong>Deaths Today:</strong> {(note.todayDeaths || 0).toLocaleString()}</p>
+          <p><strong>Total Tests:</strong> {(note.tests || 0).toLocaleString()}</p>
+          <p><strong>Population:</strong> {(note.population || 0).toLocaleString()}</p>
         </div>
 
         {/* Extra Note */}
