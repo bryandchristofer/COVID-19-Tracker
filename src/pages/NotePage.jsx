@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNotes } from "../contexts/NotesContext";
-import FilterSortBar from "./FilterSortBar";
-import DeleteModal from "./DeleteModal";
+import FilterSortBar from "../components/FilterSortBar";
+import DeleteModal from "../components/DeleteModal";
 
 const NotePage = () => {
   const { notes, updateNotes } = useNotes();

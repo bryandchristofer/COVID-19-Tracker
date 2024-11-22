@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import FilterSortBar from "./FilterSortBar";
-import AddNoteModal from "./AddNoteModal";
-import ModalDetail from "./ModalDetail";
+import FilterSortBar from "../components/FilterSortBar";
+import AddNoteModal from "../components/AddNoteModal";
+import ModalDetail from "../components/ModalDetail";
 
 const HomePage = () => {
   const [data, setData] = useState([]);

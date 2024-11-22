@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import NotePage from "./components/NotePage";
-import NoteDetailPage from "./components/NoteDetailPage";
-import EditNotePage from "./components/EditNotePage";
+import HomePage from "./pages/HomePage";
+import NotePage from "./pages/NotePage";
+import NoteDetailPage from "./pages/NoteDetailPage";
+import EditNotePage from "./pages/EditNotePage";
 import Navbar from "./components/Navbar";
 import { NotesProvider } from "./contexts/NotesContext";
 
