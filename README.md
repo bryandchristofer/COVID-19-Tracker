@@ -1,56 +1,88 @@
 # COVID-19 Tracker
 
-COVID-19 Tracker adalah aplikasi berbasis React.js yang menampilkan data COVID-19 secara global. Aplikasi ini menggunakan **disease.sh API** untuk mendapatkan informasi terkini mengenai kasus COVID-19 di berbagai negara. Aplikasi ini juga memungkinkan pengguna untuk menambahkan catatan pada negara tertentu dan menyimpan data tersebut ke local storage.
+A simple web application that tracks and displays COVID-19 statistics globally. Users can view data for all countries, add selected countries to a notes page with additional information, and explore detailed insights about specific countries.
 
 ---
 
-## 📌 Fitur
-
-1. **Halaman Utama (Home Page)**:
-   - Menampilkan data COVID-19 global dalam bentuk tabel.
-   - Dapat memfilter negara berdasarkan nama.
-   - Dapat mengurutkan data berdasarkan nama negara (A-Z/Z-A), jumlah kasus (ascending/descending), dan jumlah kematian (ascending/descending).
-   - Tombol untuk melihat detail negara.
-   - Tombol untuk menambahkan negara ke halaman catatan dengan catatan tambahan.
-
-2. **Halaman Catatan (Notes Page)**:
-   - Menampilkan daftar negara yang telah ditambahkan ke catatan.
-   - Menyediakan tombol untuk:
-     - Melihat detail negara beserta catatan.
-     - Mengedit catatan tambahan.
-     - Menghapus negara dari catatan dengan konfirmasi.
-
-3. **Detail Negara**:
-   - Menampilkan informasi rinci mengenai data COVID-19, termasuk:
-     - Total kasus.
-     - Total kematian.
-     - Total pasien sembuh.
-     - Kasus aktif.
-     - Kasus kritis.
-     - Kasus baru hari ini.
-     - Kematian baru hari ini.
-     - Total tes.
-     - Populasi.
-
-4. **Penyimpanan Data**:
-   - Data negara yang ditambahkan ke catatan disimpan di local storage.
-   - Data akan tetap tersedia meskipun aplikasi direfresh.
+## Table of Contents
+- [Project Description](#project-description)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Usage](#usage)
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Project Description
 
-- **Frontend**: React.js
-- **Styling**: Tailwind CSS
-- **State Management**: React Context API
-- **API**: [disease.sh API](https://disease.sh/v3/covid-19/countries)
-- **Penyimpanan Lokal**: Local Storage
+The **COVID-19 Tracker** is a React-based web application that displays real-time COVID-19 data for all countries using the [disease.sh API](https://disease.sh/v3/covid-19/countries). It enables users to:
+- Browse global COVID-19 statistics.
+- Add specific countries to a notes page.
+- Add custom notes for each selected country.
+- View, edit, and delete notes.
+- Access detailed insights about COVID-19 statistics for selected countries.
+
+This project demonstrates the use of React Context API for state management, Tailwind CSS for styling, and local storage for persistent data storage.
 
 ---
 
-## 🚀 Cara Menjalankan Proyek
+## Features
 
-### 1. Clone Repository
-```bash
-git clone https://github.com/username/covid19-tracker.git
-cd covid19-tracker
+### 1. **Home Page**
+- Displays COVID-19 data for all countries in a table format.
+- Features search and sorting functionality:
+  - Sort by name (A-Z, Z-A).
+  - Sort by cases (ascending, descending).
+  - Sort by deaths (ascending, descending).
+- Buttons to view details or add a country to the notes page.
+
+### 2. **Notes Page**
+- Displays a list of countries added by the user along with their custom notes.
+- Features include:
+  - View detailed COVID-19 data for a specific country.
+  - Edit or delete custom notes.
+  - Search and sort functionality similar to the home page.
+
+### 3. **Modals**
+- **Add Note Modal**: Allows users to add a custom note for a country.
+- **Detail Modal**: Displays detailed COVID-19 statistics for a selected country.
+- **Delete Confirmation Modal**: Confirms deletion of a note.
+
+### 4. **Navigation**
+- A navbar for navigating between the Home Page and Notes Page.
+- Highlights the active page for better user experience.
+
+---
+
+## Technologies Used
+
+### Frontend:
+- **React.js**: For building user interfaces.
+- **Tailwind CSS**: For styling components with modern, responsive design.
+- **React Router DOM**: For navigation between pages.
+- **Context API**: For managing global state (notes and filters).
+
+### Backend/API:
+- **disease.sh API**: For fetching real-time COVID-19 data.
+
+### State Management:
+- **React Context API**: For managing notes and state across components.
+
+### Storage:
+- **Local Storage**: For persistent storage of notes.
+
+---
+
+## Usage
+
+### Home Page
+1. View COVID-19 data for all countries.
+2. Use the search bar to filter countries by name.
+3. Sort data using the dropdown menu.
+4. Add a country to the Notes Page by clicking "Tambahkan ke Note Page".
+5. View detailed COVID-19 data by clicking "Lihat Detail".
+
+### Notes Page
+1. View a list of saved countries with custom notes.
+2. Edit or delete notes as needed.
+3. Access detailed COVID-19 data by clicking "Lihat Detail".
+4. Add a new note or modify an existing one for better organization.
